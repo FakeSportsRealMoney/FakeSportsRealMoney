@@ -1,0 +1,37 @@
+{
+  "name": "FakeSportsRealMoney",
+  "version": "1.0.0",
+  "description": "Fake Sports Real Money",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FakeSportsRealMoney/FakeSportsRealMoney.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FakeSportsRealMoney/FakeSportsRealMoney/issues"
+  },
+  "homepage": "https://github.com/FakeSportsRealMoney/FakeSportsRealMoney#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.8"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "debug": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^3.0.0"
+  }
+}
