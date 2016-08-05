@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 
 let leagueSchema = mongoose.Schema({
-  name: String,
-  sport: String
+  name: {type: String, unique: true, required: true},
+  sport: {type: String, default: 'Football'}
 });
 
 leagueSchema.methods.addUser = function(userData) {
