@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 let userSchema = mongoose.Schema({
   name: {type: String, required: true},
-  overdue: {type: Boolean, required: true},
+  overdue: {type: Boolean, required: true, default: true},
   amountDue: Number,
   contact: {
     phone: {type: String, required: true},

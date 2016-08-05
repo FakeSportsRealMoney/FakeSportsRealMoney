@@ -16,7 +16,7 @@ leagueRouter.get('/:name', (req, res, next) => {
   League.findOne({name:req.params.name})
     .then((league) => {
       if (!league) return ErrorHandler(400, next, 'No such league');
-      league.findOverdueMembers({name: req.params.name}).then(res.json.bind(res), ErrorHandler(401, next));
+      league.findAllLeagueMembers().then(res.json.bind(res), ErrorHandler(401, next));
     }, ErrorHandler(404, next));
 });
 
@@ -25,7 +25,7 @@ leagueRouter.get('/:name/overdue', (req, res, next) => {
   League.findOne({name:req.params.name})
     .then((league) => {
       if (!league) return ErrorHandler(400, next, 'No such league');
-      league.findOverdueMembers({name: req.params.name}).then(res.json.bind(res), ErrorHandler(401, next));
+      league.findOverdueMembers().then(res.json.bind(res), ErrorHandler(401, next));
     }, ErrorHandler(404, next));
 });
 
