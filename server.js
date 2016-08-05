@@ -1,7 +1,7 @@
 'use strict';
 
 const app = require('express')();
-const mongoose = require('express');
+const mongoose = require('mongoose');
 const morgan = require('morgan');
 const Promise = require('./lib/promise');
 const leagueRouter = require('./routes/league_router');
