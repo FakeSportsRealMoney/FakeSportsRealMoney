@@ -14,20 +14,16 @@ let leagueRouter = module.exports = exports = Router();
 // Or we can use :id rather than the leagues name
 // Finds all users in the specified league
 leagueRouter.get('/:name', (req, res, next) => {
-  League.findOne({name:req.params.name})
-    .then((league) => {
-      if (!league) return ErrorHandler(400, next, 'No such league');
-      league.findAllLeagueMembers().then(res.json.bind(res), ErrorHandler(401, next));
-    }, ErrorHandler(404, next));
+  let selectedLeague;
+  League.findOne({name:req.params.name}).then((err, league) => {
+    if (err) return next(err);
+    selectedLeague = league;
+  });
+  res.status(200).json(selectedLeague);
 });
 
-// These 2 get requests may have issue, unsure whether we need to call a findOne({name:req.params.name}) to find the league before calling the findAll/Overdue
-leagueRouter.get('/:name/overdue', (req, res, next) => {
-  League.findOne({name:req.params.name})
-    .then((league) => {
-      if (!league) return ErrorHandler(400, next, 'League not found');
-      league.findOverdueMembers().then(res.json.bind(res), ErrorHandler(401, next));
-    }, ErrorHandler(404, next));
+leagueRouter.get('/', (req, res, next) => {
+  League.find().then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
 });
 
 leagueRouter.post('/', jsonParser, (req, res, next) => {
