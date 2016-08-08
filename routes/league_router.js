@@ -7,6 +7,7 @@ const User = require('../models/user');
 const BasicHTTP = require('../lib/basic_http');
 const League = require('../models/league');
 
+let leagueUserRouter = require('./league_user_router');
 let leagueRouter = module.exports = exports = Router();
 
 
@@ -48,3 +49,5 @@ leagueRouter.delete('/:name', (req, res, next) => {
     res.status(200).json('Success');
   });
 });
+
+leagueRouter.use('/:leagueId/user', leagueUserRouter);

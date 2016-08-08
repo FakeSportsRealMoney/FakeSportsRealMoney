@@ -17,7 +17,7 @@ leagueSchema.methods.addUser = function(userData) {
 
 // Need to set what gets updated either here or on the return call
 leagueSchema.methods.updateUser = function(userId) {
-  return User.findOneAndUpdate({'_id':userId});
+  return User.findOneAndUpdate({'_id': userId}, {leagueId: this._id});
 };
 
 leagueSchema.methods.removeUser = function(userId) {
