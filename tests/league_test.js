@@ -5,7 +5,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const expect = chai.expect;
 const request = chai.request;
-const baseUrl = 'localhost:5000/api';
+const baseUrl = 'localhost:5000/api/league';
 const League = require('../models/league');
 
 describe('league CRUD tests', function() {
@@ -15,7 +15,8 @@ describe('league CRUD tests', function() {
       .send({name: 'fakeLeague'})
       .end((err, res) => {
         expect(err).to.eql(null);
-        expect(res).to.be(res);
+        expect(res.body.name).to.eql('fakeLeague');
+        expect(res.body.sport).to.eql('Football');
         done();
       });
   });
@@ -23,7 +24,7 @@ describe('league CRUD tests', function() {
   describe('with a league in db', function() {
     let newLeague;
     before(function(done) {
-      newLeague = League({name: 'testLeague'});
+      newLeague = new League({name: 'testLeague'});
       newLeague.save().then((leagueData) => {
         this.league = leagueData;
         done();
@@ -34,12 +35,12 @@ describe('league CRUD tests', function() {
 
     it('should get league with name testLeague', function(done) {
       request(baseUrl)
-        .get('/league/testLeague/')
+        .get('/testLeague')
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.body.name).to.eql('testLeague');
           expect(res.body.sport).to.eql('Football');
-          expect(res.body).to.have('_id');
+          expect(res.body).to.have.property('_id');
           done();
         });
     });
@@ -48,21 +49,20 @@ describe('league CRUD tests', function() {
       request(baseUrl)
         .get('/badrequest')
         .end(function(err, res) {
-          expect(err).to.eql(500);
-          expect(err.message).to.eql('bad request');
-          expect(res.body).to.eql('?');
+          expect(err.status).to.eql(404);
+          expect(err.message).to.eql('Not Found');
+          expect(res).to.have.property('body');
           done();
         });
     });
 
     it('should post a league', function(done) {
       request(baseUrl)
-        .post('/league/')
+        .post('/')
         .send({name: 'test2'})
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res.status).to.eql(200);
-          expect(res.message).to.eql('Success');
           expect(res.body.name).to.eql('test2');
           expect(res.body).to.have.property('_id');
           done();
@@ -72,23 +72,21 @@ describe('league CRUD tests', function() {
     it('should update testleague', function(done) {
       newLeague.sport = 'soccer';
       request(baseUrl)
-        .put('/league/' + newLeague.name)
+        .put('/testLeague')
         .send(newLeague)
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res).to.have.status(200);
-          expect(res.body.message).to.eql('Success');
           done();
         });
     });
 
     it('should remove testLeague', function(done) {
       request(baseUrl)
-        .delete('/league/' + newLeague.name)
+        .delete('/' + newLeague.name)
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.status).to.eql(200);
-          expect(res.body.message).to.eql('Success');
           done();
         });
     });

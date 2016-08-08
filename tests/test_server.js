@@ -2,11 +2,14 @@
 
 const app = require('express')();
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const leagueRouter = require('../routes/league_router');
 const userRouter = require('../routes/user_router');
+const leagueUserRouter = require('../routes/league_user_router');
 
 mongoose.connect('mongodb://localhost/test_db');
 
+app.use(morgan('dev'));
 app.use('/api/user', userRouter);
 app.use('/api/league', leagueRouter);
 
