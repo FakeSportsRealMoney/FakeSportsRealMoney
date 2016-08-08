@@ -10,25 +10,25 @@ let userRouter = module.exports = exports = Router();
 
 
 userRouter.post('/', jsonParser, (req, res, next) => {
-  User(req.body).save().then((res.json.bind(res), ErrorHandler(400, next, 'Bad request')));
+  User(req.body).save().then(res.json.bind(res), ErrorHandler(400, next, 'Bad request'));
 });
 
 userRouter.get('/', (req, res, next) => {
   User.find().then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
 });
 
-userRouter.get('/:id', jsonParser, (req, res, next) => {
+userRouter.get('/:id', (req, res, next) => {
   User.findOne({_id: req.params.id}).then((user) => {
-    if (!user) return ErrorHandler(401, next)(new Error('Invalid user id'));
-    user.then(res.json.bind(res), ErrorHandler(401, next));
-  });
+    if (!user) return ErrorHandler(404, next);
+    res.json(user);
+  }, ErrorHandler(400, next));
 });
 
-userRouter.delete('/:id', jsonParser, (req, res, next) => {
+userRouter.delete('/:id', (req, res, next) => {
   User.findOneAndRemove({_id: req.params.id}).then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
 });
 
-// This route is questionable, not sure if $set: req.body will work
-// userRouter.put('/:id', jsonParser, (req, res, next) => {
-//   User.update({_id: req.params.id}, {$set: req.body}).then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
-// });
+//This route is questionable, not sure if $set: req.body will work
+userRouter.put('/:id', jsonParser, (req, res, next) => {
+  User.update({_id: req.params.id}, {$set: req.body}).then(res.json.bind(res),ErrorHandler(500, next, 'Server Error'));
+});

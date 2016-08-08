@@ -5,6 +5,7 @@ mongoose.Promise = Promise;
 process.env.APP_SECRET = 'Secretkey';
 require('./test_server');
 require('./league_test');
+require('./user_test');
 process.on('exit', (code) => {
   mongoose.connection.db.dropDatabase(() => console.log('db dropped ' + code));
 });
