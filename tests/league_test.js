@@ -92,11 +92,5 @@ describe('league CRUD tests', function() {
           done();
         });
     });
-
-
-
-
-
-
   });
 });

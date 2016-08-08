@@ -6,13 +6,13 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const request = chai.request;
 const User = require('../models/user');
-const baseUrl = 'localhost:5000/api/user'
+const baseUrl = 'localhost:5000/api'
 chai.use(chaiHttp);
 
 describe('User CRUD tests', function() {
   it('Should create a new user', function(done) {
     request(baseUrl)
-      .post('/')
+      .post('/user/')
       .send({name: 'testUser', overdue: true, amountDue: 50, contact: {phone: '555', email: 'test@test.com'}, role: 'basic'})
       .end(function(err, res) {
         expect(err).to.eql(null);
@@ -35,7 +35,7 @@ describe('User CRUD tests', function() {
 
     it('Should GET User1', function(done) {
       request(baseUrl)
-        .get('/User1')
+        .get('/user/' + user.name)
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.body).to.have.property('_id');
@@ -45,7 +45,7 @@ describe('User CRUD tests', function() {
 
     it('Should GET all users', function(done) {
       request(baseUrl)
-        .get('/')
+        .get('/user/')
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.status).to.eql(200);
@@ -56,7 +56,7 @@ describe('User CRUD tests', function() {
     it('Should update User1', function(done) {
       user.overdue = false;
       request(baseUrl)
-        .put('/' + user.name)
+        .put('/user/' + user.name)
         .send(user)
         .end((err, res) => {
           expect(err).to.eql(null);
@@ -67,7 +67,7 @@ describe('User CRUD tests', function() {
     });
     it('should DELETE a user', function(done) {
       request(baseUrl)
-        .delete('/' + user.name)
+        .delete('/user/' + user.name)
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.status).to.eql(200);
