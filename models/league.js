@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const User = require('./models/user');
+const User = require('./user');
 
 let leagueSchema = mongoose.Schema({
   name: {type: String, unique: true, required: true},

@@ -6,7 +6,7 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const request = chai.request;
 const User = require('../models/user');
-const baseUrl = 'localhost:5000/api'
+const baseUrl = 'localhost:5000/api';
 chai.use(chaiHttp);
 
 describe('User CRUD tests', function() {
