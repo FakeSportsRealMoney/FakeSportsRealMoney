@@ -1,7 +1,7 @@
 'use strict';
 
 const Router = require('express').Router;
-const ErrorHandler = require('../error_handler');
+const ErrorHandler = require('../lib/error_handler');
 const jsonParser = require('body-parser').json();
 const User = require('../models/user');
 const BasicHTTP = require('../lib/basic_http');
@@ -24,11 +24,27 @@ leagueRouter.get('/:name', (req, res, next) => {
 leagueRouter.get('/:name/overdue', (req, res, next) => {
   League.findOne({name:req.params.name})
     .then((league) => {
-      if (!league) return ErrorHandler(400, next, 'No such league');
+      if (!league) return ErrorHandler(400, next, 'League not found');
       league.findOverdueMembers().then(res.json.bind(res), ErrorHandler(401, next));
     }, ErrorHandler(404, next));
 });
 
 leagueRouter.post('/', jsonParser, (req, res, next) => {
-  (new League(req.body).newLeague.save().then(res.json.bind(res), ErrorHandler(400, next)));
+  (new League(req.body).save().then(res.json.bind(res), ErrorHandler(400, next)));
+});
+
+leagueRouter.put('/:name', jsonParser, (req, res, next) => {
+  let name = req.params.name;
+  League.findOneAndUpdate({name}, req.body, (err) => {
+    if (err) return ErrorHandler(404, next, 'League not found');
+    res.status(200).json('Success');
+  });
+});
+
+leagueRouter.delete('/:name', (req, res, next) => {
+  let name = req.params.name;
+  League.findOneAndRemove({name}, (err) => {
+    if (err) return ErrorHandler(404, next, 'League not found');
+    res.status(200).json('Success');
+  });
 });
