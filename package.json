@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/FakeSportsRealMoney/FakeSportsRealMoney#readme",
   "dependencies": {
-    "bcrypt": "^0.8.7",
+    "bcrypt": "latest",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
