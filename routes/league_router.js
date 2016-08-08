@@ -1,7 +1,7 @@
 'use strict';
 
 const Router = require('express').Router;
-const ErrorHandler = require('../error_handler');
+const ErrorHandler = require('../lib/error_handler');
 const jsonParser = require('body-parser').json();
 const User = require('../models/user');
 const BasicHTTP = require('../lib/basic_http');
