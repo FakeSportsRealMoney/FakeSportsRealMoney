@@ -58,7 +58,7 @@ describe('User CRUD tests', function() {
       user.overdue = false;
       request(baseUrl)
         .put('/' + user._id)
-        .send(user)
+        .send({overdue: false})
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.status).to.eql(200);
