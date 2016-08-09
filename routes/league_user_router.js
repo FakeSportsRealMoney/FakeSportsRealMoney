@@ -2,7 +2,7 @@
 
 const express = require('express');
 const League = require('../models/league');
-const jsonParser = require('body-parser');
+const jsonParser = require('body-parser').json();
 const ErrorHandler = require('../lib/error_handler');
 
 
@@ -12,10 +12,12 @@ let findLeague = function(req, res, next) {
   League.findOne({'_id': req.params.leagueId}).then((league) => {
     if (!league) return ErrorHandler(404, next, 'League does not exist');
     req.league = league;
+    next();
   }, ErrorHandler(404, next, 'League does not exist'));
 };
 
 leagueUserRouter.get('/', findLeague, (req, res, next) => {
+  debugger;
   req.league.findAllLeagueMembers().then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
 });
 
@@ -30,6 +32,7 @@ leagueUserRouter.post('/', jsonParser, findLeague, (req, res, next) => {
 });
 
 leagueUserRouter.put('/:id', jsonParser, (req, res, next) => {
+  debugger;
   req.league.updateUser(req.params.id).then(res.json.bind(res), ErrorHandler(404, next, 'No such user'));
 });
 
