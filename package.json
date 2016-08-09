@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "./node_modules/mocha/bin/mocha tests/test_harness.js",
     "start": "node server.js",
     "lint": "./node_modules/eslint/bin/eslint.js"
   },
