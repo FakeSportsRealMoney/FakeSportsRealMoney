@@ -9,16 +9,12 @@ let leagueSchema = mongoose.Schema({
 });
 
 leagueSchema.methods.addUser = function(userData) {
-  debugger;
   let user = new User(userData);
   user.leagueId = this._id;
   return user.save();
 };
 
-
-// Need to set what gets updated either here or on the return call
 leagueSchema.methods.updateUser = function(userId, body) {
-  debugger;
   return User.findOneAndUpdate({'_id': userId}, {$set: body});
 };
 

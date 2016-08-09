@@ -8,13 +8,11 @@ const League = require('../models/league');
 let leagueUserRouter = require('./league_user_router');
 let leagueRouter = module.exports = exports = Router();
 
-
-// Or we can use :id rather than the leagues name
 // Finds all users in the specified league
-leagueRouter.get('/:name', (req, res, next) => {
+leagueRouter.get('/:id', (req, res, next) => {
   let handleDbError = ErrorHandler(400, next, 'invalid name');
   let handleNotFound = ErrorHandler(404, next, 'Not Found');
-  League.findOne({name:req.params.name}).then((league) => {
+  League.findOne({'_id':req.params.id}).then((league) => {
     if (!league) return handleNotFound();
     res.json(league);
   }, handleDbError);
@@ -28,17 +26,17 @@ leagueRouter.post('/', jsonParser, (req, res, next) => {
   (new League(req.body).save().then(res.json.bind(res), ErrorHandler(400, next)));
 });
 
-leagueRouter.put('/:name', jsonParser, (req, res, next) => {
-  let name = req.params.name;
-  League.findOneAndUpdate({name}, req.body, (err) => {
+leagueRouter.put('/:id', jsonParser, (req, res, next) => {
+  let _id = req.params.id;
+  League.findOneAndUpdate({_id}, req.body, (err) => {
     if (err) return ErrorHandler(404, next, 'League not found');
     res.status(200).json('Success');
   });
 });
 
-leagueRouter.delete('/:name', (req, res, next) => {
-  let name = req.params.name;
-  League.findOneAndRemove({name}, (err) => {
+leagueRouter.delete('/:id', (req, res, next) => {
+  let _id = req.params.id;
+  League.findOneAndRemove({_id}, (err) => {
     if (err) return ErrorHandler(404, next, 'League not found');
     res.status(200).json('Success');
   });

@@ -35,7 +35,7 @@ describe('league CRUD tests', function() {
 
     it('should get league with name testLeague', function(done) {
       request(baseUrl)
-        .get('/testLeague')
+        .get('/' + newLeague._id)
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.body.name).to.eql('testLeague');
@@ -49,8 +49,8 @@ describe('league CRUD tests', function() {
       request(baseUrl)
         .get('/badrequest')
         .end(function(err, res) {
-          expect(err.status).to.eql(404);
-          expect(err.message).to.eql('Not Found');
+          expect(err.status).to.eql(400);
+          expect(err.message).to.eql('Bad Request');
           expect(res).to.have.property('body');
           done();
         });
@@ -72,7 +72,7 @@ describe('league CRUD tests', function() {
     it('should update testleague', function(done) {
       newLeague.sport = 'soccer';
       request(baseUrl)
-        .put('/testLeague')
+        .put('/' + newLeague._id)
         .send({sport: 'soccer'})
         .end(function(err, res) {
           expect(err).to.eql(null);
@@ -83,7 +83,7 @@ describe('league CRUD tests', function() {
 
     it('should remove testLeague', function(done) {
       request(baseUrl)
-        .delete('/' + newLeague.name)
+        .delete('/' + newLeague._id)
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.status).to.eql(200);
