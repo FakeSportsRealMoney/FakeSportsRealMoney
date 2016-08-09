@@ -31,7 +31,7 @@ leagueSchema.methods.findAllLeagueMembers = function() {
 };
 
 leagueSchema.methods.findOverdueMembers = function() {
-  return User.find({leagueId: this.id, overdue: true});
+  return User.find({leagueId: this._id, overdue: true});
 };
 
 module.exports = exports = mongoose.model('league', leagueSchema);
