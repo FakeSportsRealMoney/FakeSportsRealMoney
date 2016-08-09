@@ -7,8 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "tests/test_harness.js",
-    "start": "node server.js"
+    "test": "./node_modules/mocha/bin/mocha tests/test_harness.js",
+    "start": "node server.js",
+    "lint": "./node_modules/eslint/bin/eslint.js"
   },
   "repository": {
     "type": "git",
