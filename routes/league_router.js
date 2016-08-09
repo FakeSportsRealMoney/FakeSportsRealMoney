@@ -8,10 +8,13 @@ const League = require('../models/league');
 let leagueUserRouter = require('./league_user_router');
 let leagueRouter = module.exports = exports = Router();
 
+
+// Or we can use :id rather than the leagues name
+// Finds all users in the specified league
 leagueRouter.get('/:name', (req, res, next) => {
   let handleDbError = ErrorHandler(400, next, 'invalid name');
   let handleNotFound = ErrorHandler(404, next, 'Not Found');
-  League.findOne({'name':req.params.name}).then((league) => {
+  League.findOne({name:req.params.name}).then((league) => {
     if (!league) return handleNotFound();
     res.json(league);
   }, handleDbError);

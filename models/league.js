@@ -9,6 +9,7 @@ let leagueSchema = mongoose.Schema({
 });
 
 leagueSchema.methods.addUser = function(userData) {
+  debugger;
   let user = new User(userData);
   user.leagueId = this._id;
   return user.save();
@@ -17,6 +18,7 @@ leagueSchema.methods.addUser = function(userData) {
 
 // Need to set what gets updated either here or on the return call
 leagueSchema.methods.updateUser = function(userId) {
+  debugger;
   return User.findOneAndUpdate({'_id': userId}, {leagueId: this._id});
 };
 
@@ -29,7 +31,7 @@ leagueSchema.methods.findAllLeagueMembers = function() {
 };
 
 leagueSchema.methods.findOverdueMembers = function() {
-  return User.find({leagueId: this.id, overdue: true});
+  return User.find({leagueId: this._id, overdue: true});
 };
 
 module.exports = exports = mongoose.model('league', leagueSchema);
