@@ -18,17 +18,19 @@ userRouter.get('/', (req, res, next) => {
 });
 
 userRouter.get('/:id', (req, res, next) => {
-  User.findOne({_id: req.params.id}).then((user) => {
-    if (!user) return ErrorHandler(404, next);
+  User.findOne({'_id': req.params.id}).then((user) => {
+    if (!user) return ErrorHandler(404, next)(new Error('Invalid user'));
     res.json(user);
   }, ErrorHandler(400, next));
 });
 
 userRouter.delete('/:id', (req, res, next) => {
-  User.findOneAndRemove({_id: req.params.id}).then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
+  User.findOneAndRemove({'_id': req.params.id}).then((user) => {
+    if(!user) return ErrorHandler(404, next, 'User not found');
+    res.json('Success');
+  }, ErrorHandler(400, next));
 });
 
-//This route is questionable, not sure if $set: req.body will work
 userRouter.put('/:id', jsonParser, (req, res, next) => {
   User.update({_id: req.params.id}, {$set: req.body}).then(res.json.bind(res),ErrorHandler(500, next, 'Server Error'));
 });

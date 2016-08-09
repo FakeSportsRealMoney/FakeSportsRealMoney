@@ -73,7 +73,7 @@ describe('league CRUD tests', function() {
       newLeague.sport = 'soccer';
       request(baseUrl)
         .put('/testLeague')
-        .send(newLeague)
+        .send({sport: 'soccer'})
         .end(function(err, res) {
           expect(err).to.eql(null);
           expect(res).to.have.status(200);

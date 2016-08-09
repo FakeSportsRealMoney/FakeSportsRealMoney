@@ -27,6 +27,7 @@
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "cron": "^1.1.0",
+    "eslint": "^3.2.2",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.7",
     "mongoose": "^4.5.8",
