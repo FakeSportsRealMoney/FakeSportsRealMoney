@@ -1,6 +1,5 @@
 'use strict';
 
-const userRouter = require('../routes/user_router');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;

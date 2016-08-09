@@ -5,7 +5,6 @@ const League = require('../models/league');
 const jsonParser = require('body-parser').json();
 const ErrorHandler = require('../lib/error_handler');
 
-
 let leagueUserRouter = module.exports = exports = express.Router({mergeParams: true});
 
 let findLeague = function(req, res, next) {
@@ -17,13 +16,10 @@ let findLeague = function(req, res, next) {
 };
 
 leagueUserRouter.get('/', findLeague, (req, res, next) => {
-  debugger;
   req.league.findAllLeagueMembers().then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
 });
 
-
 leagueUserRouter.get('/overdue', findLeague, (req, res, next) => {
-  // INSERT REMINDER ACTIONS HERE RATHER THAN JUST SEND THE LIST BACK
   req.league.findOverdueMembers().then(res.json.bind(res), ErrorHandler(500, next, 'Server Error'));
 });
 
@@ -32,7 +28,6 @@ leagueUserRouter.post('/', jsonParser, findLeague, (req, res, next) => {
 });
 
 leagueUserRouter.put('/:id', jsonParser, findLeague, (req, res, next) => {
-  debugger;
   req.league.updateUser(req.params.id, req.body).then(res.json.bind(res), ErrorHandler(404, next, 'No such user'));
 });
 
