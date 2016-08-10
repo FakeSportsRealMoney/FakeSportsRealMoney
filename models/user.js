@@ -11,7 +11,8 @@ let userSchema = mongoose.Schema({
     email: {type: String, required: true}
   },
   leagueId: String,
-  role: {type: String, default: 'basic'}
+  role: {type: String, default: 'basic'},
+  date: {type: Date, default: Date.now}
 });
 
 module.exports = exports = mongoose.model('user', userSchema);
