@@ -32,6 +32,7 @@
     "jsonwebtoken": "^7.1.7",
     "mongoose": "^4.5.8",
     "morgan": "^1.7.0",
+    "nodemailer": "^2.5.0",
     "request": "^2.74.0",
     "twilio": "^2.9.2"
   },
