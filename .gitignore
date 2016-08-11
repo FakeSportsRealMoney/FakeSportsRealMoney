@@ -3,3 +3,4 @@ db
 travis
 #travis
 travis.log
+.env
