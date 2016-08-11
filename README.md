@@ -1,7 +1,8 @@
 # FakeSportsRealMoney
 ## For league commissioners to avoid having to deal with deadbeat members
 ### Create League
- * Submit a POST request to: `https://fake-sports-real-money.herokuapp.com/api/league/` that includes `"name": "YOURLEAGUENAME"` in the request body and "sport" attribute if desired, FSRM defaults to Football if unspecified
+ * Submit a POST request to: `https://fake-sports-real-money.herokuapp.com/api/league/` that includes `"name": "YOURLEAGUENAME"` in the request body and "sport" attribute if desired, FSRM league creation defaults to Football if left unspecified
+
 ## POST your league members information
  * Use your returned leagueId to POST reqeust to `https://fake-sports-real-money.herokuapp.com/api/league/YOURLEAGUEID/user/` that includes the following info in the request body:
  * * `name: person's name` (required field),
