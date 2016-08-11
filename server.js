@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const Promise = require('./lib/promise');
 const leagueRouter = require('./routes/league_router');
 const userRouter = require('./routes/user_router');
-const overdueCheck = require('./lib/cron');
+const cronJobs = require('./lib/cron');
 const PORT = process.env.PORT || 3000;
 
 const dbPort = process.env.MONGODB_URI || 'mongodb://localhost/dev_db';
@@ -21,6 +21,8 @@ app.use((err, req, res, next) => {
   res.status(err.statusCode || 500).json(err.message);
 });
 
-overdueCheck;
+cronJobs.incrementDays;
+cronJobs.overdueCheck;
+cronJobs.veryOverdue;
 
 app.listen(PORT, () => console.log('server up on port ' + PORT));
