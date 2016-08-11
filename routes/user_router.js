@@ -4,10 +4,8 @@ const Router = require('express').Router;
 const ErrorHandler = require('../lib/error_handler');
 const jsonParser = require('body-parser').json();
 const User = require('../models/user');
-const BasicHTTP = require('../lib/basic_http');
 
 let userRouter = module.exports = exports = Router();
-
 
 userRouter.post('/', jsonParser, (req, res, next) => {
   User(req.body).save().then(res.json.bind(res), ErrorHandler(400, next, 'Bad request'));

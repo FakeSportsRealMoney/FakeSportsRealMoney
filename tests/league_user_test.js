@@ -64,4 +64,26 @@ describe('testing with league and user', function() {
         done();
       });
   });
+
+  it('Should give a bad POST request', function(done) {
+    request(baseUrl)
+    .post('/' + testLeague._id + '/user')
+    .send({name: 'testUser', overdue: true, amountDue: 200})
+    .end((err, res) => {
+      expect(err).to.not.eql(null);
+      expect(res.status).to.eql(400);
+      expect(res.body).to.eql('Bad request');
+      done();
+    });
+  });
+
+  it('should give a bad DELETE request', function(done) {
+    request(baseUrl)
+      .delete('/' + testLeague.id + '/user/fakeUserId')
+      .end((err, res) => {
+        expect(err).to.not.eql(null);
+        expect(res.status).to.eql(404);
+        done();
+      });
+  });
 });

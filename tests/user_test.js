@@ -64,12 +64,46 @@ describe('User CRUD tests', function() {
           done();
         });
     });
+
     it('should DELETE a user', function(done) {
       request(baseUrl)
-        .delete('/' + user._id)
+      .delete('/' + user._id)
+      .end((err, res) => {
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+        done();
+      });
+    });
+
+    it('Bad GET request that should get an error', function(done) {
+      request(baseUrl)
+      .get('/badrequest')
+      .end((err, res) => {
+        expect(err).to.not.eql(null);
+        expect(res.status).to.eql(400);
+        expect(err.message).to.eql('Bad Request');
+        done();
+      });
+    });
+
+    it('Should give a bad POST request', function(done) {
+      request(baseUrl)
+      .post('/')
+      .send({name: 'testUser', overdue: true, amountDue: 50, role: 'basic'})
+      .end((err, res) => {
+        expect(err).to.not.eql(null);
+        expect(res.status).to.eql(400);
+        expect(res.body).to.eql('Bad request');
+        done();
+      });
+    });
+
+    it('should give a bad DELETE request', function(done) {
+      request(baseUrl)
+        .delete('/fakeIdHere')
         .end((err, res) => {
-          expect(err).to.eql(null);
-          expect(res.status).to.eql(200);
+          expect(err).to.not.eql(null);
+          expect(res.status).to.eql(400);
           done();
         });
     });
