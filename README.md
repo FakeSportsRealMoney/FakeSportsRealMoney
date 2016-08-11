@@ -5,10 +5,10 @@
 
 ## POST your league members information
  * Use your returned leagueId to POST reqeust to `https://fake-sports-real-money.herokuapp.com/api/league/YOURLEAGUEID/user/` that includes the following info in the request body:
- * * `name: person's name` (required field),
- *  `contact: { "email" : "email@address.com", "phone":"5555555555"}` (required fields),
- *  `overdue: true/false (defaults to true if unspecified),
- *  `amountDue: 50 (optional)
+ *  `name: person's name` (required field),
+ *  `contact: { "email":"email@address.com", "phone":"5555555555"}` (required fields),
+ *  `overdue: true/false` (defaults to true if unspecified),
+ *  `amountDue: 50` (optional)
 
 Specific request field formatting depends on your method of input, we recommend httpie or postman if your not experienced with curl.
 Example httpie from the terminal:
