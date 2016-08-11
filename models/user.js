@@ -12,7 +12,7 @@ let userSchema = mongoose.Schema({
   },
   leagueId: String,
   role: {type: String, default: 'basic'},
-  date: {type: Date, default: Date.now}
+  daysOverdue: {type: Number, default: 0}
 });
 
 module.exports = exports = mongoose.model('user', userSchema);

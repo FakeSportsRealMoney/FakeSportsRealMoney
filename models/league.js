@@ -30,4 +30,8 @@ leagueSchema.methods.findOverdueMembers = function() {
   return User.find({leagueId: this._id, overdue: true});
 };
 
+leagueSchema.methods.incrementDays = function(userId) {
+  return User.findOneAndUpdate({'_id': userId}, {$inc: {daysOverdue: 1}});
+}
+
 module.exports = exports = mongoose.model('league', leagueSchema);
