@@ -24,7 +24,7 @@ leagueUserRouter.get('/overdue', findLeague, (req, res, next) => {
 });
 
 leagueUserRouter.post('/', jsonParser, findLeague, (req, res, next) => {
-  req.league.addUser(req.body).then(res.json.bind(res), ErrorHandler(400, next));
+  req.league.addUser(req.body).then(res.json.bind(res), ErrorHandler(400, next, 'Bad request'));
 });
 
 leagueUserRouter.put('/:id', jsonParser, findLeague, (req, res, next) => {
@@ -32,9 +32,8 @@ leagueUserRouter.put('/:id', jsonParser, findLeague, (req, res, next) => {
 });
 
 leagueUserRouter.get('/:id/increment', findLeague, (req, res, next) => {
-  req.league.incrementDays(req.params.id).then(res.json.bind(res), ErrorHandler(404, next, 'No such user'))
-
-})
+  req.league.incrementDays(req.params.id).then(res.json.bind(res), ErrorHandler(404, next, 'No such user'));
+});
 
 leagueUserRouter.delete('/:id', findLeague, (req, res, next) => {
   req.league.removeUser(req.params.id).then(res.json.bind(res), ErrorHandler(404, next, 'No such user'));

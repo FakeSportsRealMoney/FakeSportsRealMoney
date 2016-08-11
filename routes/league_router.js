@@ -8,7 +8,6 @@ const League = require('../models/league');
 let leagueUserRouter = require('./league_user_router');
 let leagueRouter = module.exports = exports = Router();
 
-// Finds all users in the specified league
 leagueRouter.get('/:id', (req, res, next) => {
   let handleDbError = ErrorHandler(400, next, 'invalid name');
   let handleNotFound = ErrorHandler(404, next, 'Not Found');
@@ -23,7 +22,7 @@ leagueRouter.get('/', (req, res, next) => {
 });
 
 leagueRouter.post('/', jsonParser, (req, res, next) => {
-  (new League(req.body).save().then(res.json.bind(res), ErrorHandler(400, next)));
+  (new League(req.body).save().then(res.json.bind(res), ErrorHandler(400, next, 'Bad request')));
 });
 
 leagueRouter.put('/:id', jsonParser, (req, res, next) => {
@@ -35,11 +34,10 @@ leagueRouter.put('/:id', jsonParser, (req, res, next) => {
 });
 
 leagueRouter.delete('/:id', (req, res, next) => {
-  let _id = req.params.id;
-  League.findOneAndRemove({_id}, (err) => {
-    if (err) return ErrorHandler(404, next, 'League not found');
+  League.findOneAndRemove({'_id':req.params.id}).then((league) => {
+    if (!league) return ErrorHandler(404, next, 'League not found');
     res.status(200).json('Success');
-  });
+  }, ErrorHandler(404, next, 'League not found'));
 });
 
 leagueRouter.use('/:leagueId/user', leagueUserRouter);

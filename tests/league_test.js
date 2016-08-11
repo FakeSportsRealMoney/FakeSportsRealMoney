@@ -45,7 +45,7 @@ describe('league CRUD tests', function() {
         });
     });
 
-    it('should respond with an error', function(done) {
+    it('Bad GET request should error', function(done) {
       request(baseUrl)
         .get('/badrequest')
         .end(function(err, res) {
@@ -87,6 +87,28 @@ describe('league CRUD tests', function() {
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res.status).to.eql(200);
+          done();
+        });
+    });
+
+    it('Should give a bad POST request', function(done) {
+      request(baseUrl)
+      .post('/')
+      .send({sport:'golf'})
+      .end((err, res) => {
+        expect(err).to.not.eql(null);
+        expect(res.status).to.eql(400);
+        expect(res.body).to.eql('Bad request');
+        done();
+      });
+    });
+
+    it('should give a bad DELETE request', function(done) {
+      request(baseUrl)
+        .delete('/fakeIdHere')
+        .end((err, res) => {
+          expect(err).to.not.eql(null);
+          expect(res.status).to.eql(404);
           done();
         });
     });

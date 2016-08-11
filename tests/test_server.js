@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const leagueRouter = require('../routes/league_router');
 const userRouter = require('../routes/user_router');
-const leagueUserRouter = require('../routes/league_user_router');
 
 mongoose.connect('mongodb://localhost/test_db');
 
