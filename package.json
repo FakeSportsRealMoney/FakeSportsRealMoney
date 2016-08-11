@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/FakeSportsRealMoney/FakeSportsRealMoney/issues"
   },
-  "homepage": "https://github.com/FakeSportsRealMoney/FakeSportsRealMoney#readme",
+  "homepage": "https://fake-sports-real-money.herokuapp.com/api",
   "dependencies": {
     "bcrypt": "latest",
     "bluebird": "^3.4.1",
@@ -29,7 +29,6 @@
     "cron": "^1.1.0",
     "eslint": "^3.2.2",
     "express": "^4.14.0",
-    "jsonwebtoken": "^7.1.7",
     "mongoose": "^4.5.8",
     "morgan": "^1.7.0",
     "nodemailer": "^2.5.0",
