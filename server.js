@@ -43,15 +43,15 @@ var inbound = {
       to: 'dylanjsanders1@gmail.com',
       from: to,
       subject: 'sendgrid test',
-      text: 'payload was delivered'
+      text: contents
     });
 
     sendgrid.send(email, (err, json) => {
       if (err) {
         console.log(err);
-        request.reply({success: false, error: {message:err.message}});
+        req.reply({success: false, error: {message:err.message}});
       } else {
-        request.reply({success:true});
+        req.reply({success:true});
       }
     });
   }
