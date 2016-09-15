@@ -11,6 +11,7 @@ let leagueRouter = module.exports = exports = Router();
 leagueRouter.get('/:id', (req, res, next) => {
   let handleDbError = ErrorHandler(400, next, 'invalid name');
   let handleNotFound = ErrorHandler(404, next, 'Not Found');
+  //I would probably do this inline rather than set them to variables makes the code a little cleaner
   League.findOne({'_id':req.params.id}).then((league) => {
     if (!league) return handleNotFound();
     res.json(league);

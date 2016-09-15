@@ -1,4 +1,5 @@
 'use strict';
+//looks good, solid clean code
 
 const express = require('express');
 const League = require('../models/league');
